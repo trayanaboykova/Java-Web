@@ -8,3 +8,15 @@ In this lesson, I learned about the HTTP protocol and how it plays a fundamental
 
 **Spring Core**: <br>
 In this lesson, I was introduced to the core concepts of the Spring framework and learned how Spring Boot simplifies the development of Spring-based applications. I explored the principles of Inversion of Control (IoC) and Dependency Injection, which allow for better flexibility and decoupling of components in an application. I also learned about Spring Beans, their lifecycle, and how they are managed by the Spring IoC container. Additionally, I studied the layered architecture approach commonly used in Spring applications to separate concerns and improve maintainability.
+
+**Spring MVC with Thymeleaf Basics**: <br>
+...
+
+**Spring MVC with Thymeleaf Advanced**: <br>
+...
+
+**State Management**: <br>
+...
+
+**Events, Scheduling Tasks and Caching**: <br>
+...
