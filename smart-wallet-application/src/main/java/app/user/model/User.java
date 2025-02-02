@@ -3,12 +3,22 @@ package app.user.model;
 import app.subscription.model.Subscription;
 import app.wallet.model.Wallet;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+@Builder
+@Getter
+@Service
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class User {
 
