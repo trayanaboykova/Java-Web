@@ -45,7 +45,7 @@ public class UserService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new DomainException("Username or password incorrect.");
         }
-        
+
         return user;
     }
 
