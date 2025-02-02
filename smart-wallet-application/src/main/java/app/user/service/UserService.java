@@ -6,6 +6,7 @@ import app.user.model.User;
 import app.user.model.UserRole;
 import app.user.repository.UserRepository;
 import app.wallet.service.WalletService;
+import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -33,11 +34,26 @@ public class UserService {
         this.walletService = walletService;
     }
 
+    public User login(LoginRequest loginRequest) {
+
+        Optional<User> optionUser = userRepository.findByUsername(loginRequest.getUsername());
+        if (optionUser.isEmpty()) {
+            throw new DomainException("Username or password incorrect.");
+        }
+
+        User user = optionUser.get();
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            throw new DomainException("Username or password incorrect.");
+        }
+        
+        return user;
+    }
+
     @Transactional
     public User register(RegisterRequest registerRequest) {
 
-        Optional<User> userOptional = userRepository.findByUsername(registerRequest.getUsername());
-        if (userOptional.isPresent()) {
+        Optional<User> optionUser = userRepository.findByUsername(registerRequest.getUsername());
+        if (optionUser.isPresent()) {
             throw new DomainException("Username [%s] already exists.".formatted(registerRequest.getUsername()));
         }
 
