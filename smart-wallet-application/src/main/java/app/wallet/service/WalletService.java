@@ -78,7 +78,7 @@ public class WalletService {
                 TransactionStatus.SUCCEEDED,
                 transactionDescription,
                 null);
-        
+
     }
 
     private Wallet getWalletById(UUID walletId) {
