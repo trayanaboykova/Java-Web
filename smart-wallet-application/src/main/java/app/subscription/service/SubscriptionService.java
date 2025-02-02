@@ -23,8 +23,8 @@ public class SubscriptionService {
     }
 
     public void createDefaultSubscription(User user) {
-        
-        Subscription subscription =  subscriptionRepository.save(initializeSubscription(user));
+
+        Subscription subscription = subscriptionRepository.save(initializeSubscription(user));
 
         log.info("Successfully created a new subscription with id [%s] and type [%s].".formatted(subscription.getId(), subscription.getType()));
 
