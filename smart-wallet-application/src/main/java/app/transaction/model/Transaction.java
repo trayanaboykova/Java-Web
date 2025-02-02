@@ -2,10 +2,7 @@ package app.transaction.model;
 
 import app.user.model.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -15,6 +12,7 @@ import java.util.UUID;
 
 @Builder
 @Getter
+@Setter
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
