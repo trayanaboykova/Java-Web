@@ -11,4 +11,5 @@ public class LoginRequest {
 
     @Size(min = 6, message = "Password must be at least 6 symbols")
     private String password;
+
 }
