@@ -97,61 +97,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr th:each="user : ${users}">
                 <td>
                     <div class="user-info">
-                        <a href="correct-url">
-                            <img src="https://cdn4.iconfinder.com/data/icons/famous-character-vol-2-flat/48/Avatar_Famous_Characters-07-512.png"
-                                 alt="Avatar" class="user-avatar">
+                        <!--    th:href="@{link}"  link = '/users/' + ${user.id}-->
+                        <a th:href="@{'/users/' + ${user.id}}">
+                            <img th:src="${user.profilePictureUrl}" alt="Avatar" class="user-avatar">
                         </a>
-                        <span>Username</span>
+                        <span th:text="${user.username}"></span>
                     </div>
                 </td>
-                <td>john</td>
-                <td>+123456789</td>
-                <td>USA</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="user-info">
-                        <a href="correct-url">
-                            <img src="https://cdn4.iconfinder.com/data/icons/famous-character-vol-2-flat/48/Avatar_Famous_Characters-09-512.png"
-                                 alt="Avatar" class="user-avatar">
-                        </a>
-                        <span>Username</span>
-                    </div>
-                </td>
-                <td>jane</td>
-                <td>+987654321</td>
-                <td>UK</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="user-info">
-                        <a href="correct-url">
-                            <img src="https://cdn4.iconfinder.com/data/icons/famous-character-vol-2-flat/48/Avatar_Famous_Characters-10-512.png"
-                                 alt="Avatar" class="user-avatar">
-                        </a>
-                        <span>Username</span>
-                    </div>
-                </td>
-                <td>emily</td>
-                <td>+1122334455</td>
-                <td>Canada</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="user-info">
-                        <a href="correct-url">
-                            <img src="https://cdn4.iconfinder.com/data/icons/famous-character-vol-2-flat/48/Avatar_Famous_Characters-11-512.png"
-                                 alt="Avatar" class="user-avatar">
-                        </a>
-                        <span>Username</span>
-                    </div>
-                </td>
-                <td>michael</td>
-                <td>+5566778899</td>
-                <td>Australia</td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.phoneNumber}"></td>
+                <td th:text="${user.country}"></td>
             </tr>
             </tbody>
         </table>
