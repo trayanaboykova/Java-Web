@@ -1,17 +1,22 @@
 package main.web;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Map;
 
 // Handler Method is a method that handles HTTP requests
 
 @RestController
 @RequestMapping("/info") // base path for all handler methods
 public class MyController {
+
+    private Map<Integer, String> users = Map.of(
+            1, "Taylor",
+            2, "Augustine",
+            3, "Clara"
+    );
 
     // HTTP GET /info/time-now
     // 1. Колко е часът сега?
@@ -27,6 +32,12 @@ public class MyController {
     public String getDayOfWeek() {
 
         return "Today is " + LocalDateTime.now().getDayOfWeek().name();
+    }
+
+    @GetMapping("/users/{id}")
+    public String getUsernameById(@PathVariable int id, @RequestParam("fistName") String fistName, @RequestParam("age") int age) {
+
+        return users.get(id);
     }
 
 }
