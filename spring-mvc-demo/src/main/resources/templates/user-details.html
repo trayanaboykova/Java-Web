@@ -133,36 +133,44 @@
             font-size: 14px;
             color: #777;
         }
+
+        .deposit-transaction-type-color {
+            color: #6ed963;
+        }
+
+        .withdrawal-transaction-type-color {
+            color: #ec5f5f;
+        }
     </style>
     <title>Financial Profile</title>
 </head>
 <body>
 <div class="header">Financial Profile Dashboard</div>
-<a href="correct-url" class="all-users-button">Users</a>
+<a th:href="@{/users}" class="all-users-button">Users</a>
 
 <div class="main-container">
     <div class="profile-section">
-        <img src="https://cdn4.iconfinder.com/data/icons/famous-character-vol-2-flat/48/Avatar_Famous_Characters-07-512.png"
+        <img th:src="${user.profilePictureUrl}"
              alt="Profile Picture" class="profile-avatar">
-        <h1 th:text="${user}"> Username </h1>
+        <h1 th:text="${user.username}"> Username </h1>
     </div>
 
     <div class="details-container">
         <div class="details-card">
             <h2>Personal Information</h2>
-            <div class="details-item"><span>Name:</span><span>Ivan</span></div>
-            <div class="details-item"><span>Country:</span><span>Bulgaria</span></div>
+            <div class="details-item"><span>Name:</span><span th:text="${user.firstName}"></span></div>
+            <div class="details-item"><span>Country:</span><span th:text="${user.country}"></span></div>
         </div>
 
         <div class="details-card">
             <h2>Payment Details</h2>
-            <div class="details-item"><span>Amount:</span><span>200 EUR</span></div>
+            <div class="details-item"><span>Amount:</span><span th:text="${user.balance}"></span></div>
         </div>
 
         <div class="details-card">
             <h2>Contact Information</h2>
-            <div class="details-item"><span>Phone:</span><span>+359888888888</span></div>
-            <div class="details-item"><span>Address:</span><span>Sofia, Borovo</span></div>
+            <div class="details-item"><span>Phone:</span><span th:text="${user.phoneNumber}"></span></div>
+            <div class="details-item"><span>Address:</span><span th:text="${user.address}"></span></div>
         </div>
     </div>
 
@@ -177,23 +185,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>200</td>
-                <td>DEPOSIT</td>
-                <td>13 Jan 2025</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>150</td>
-                <td>WITHDRAWAL</td>
-                <td>10 Jan 2025</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>300</td>
-                <td>DEPOSIT</td>
-                <td>08 Jan 2025</td>
+            <tr th:each="transaction : ${user.transactions}">
+                <td th:text="${transaction.id}"></td>
+                <td th:text="${transaction.amount}"></td>
+                <td th:if="${transaction.type} == 'DEPOSIT'" class="deposit-transaction-type-color" th:text="${transaction.type}"></td>
+                <td th:if="${transaction.type} == 'WITHDRAWAL'" class="withdrawal-transaction-type-color" th:text="${transaction.type}"></td>
+                <td th:text="${#temporals.format(transaction.createdOn, 'dd MMM yyyy')}"></td>
             </tr>
             </tbody>
         </table>
