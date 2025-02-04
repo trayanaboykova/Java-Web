@@ -31,16 +31,18 @@
 
         <h3>Register Here</h3>
 
-        <label for="username">Username</label>
-        <input type="text" placeholder="Username" id="username" th:field="*{username}" required>
+            <label for="username">Username</label>
+            <input type="text" placeholder="Username" id="username" th:field="*{username}" required>
+            <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
 
-        <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password" th:field="*{password}" required>
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password" th:field="*{password}" required>
+            <p class="alert-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 
-        <label for="country">Country</label>
-        <select name="country" id="country" th:field="*{country}">
-            <option th:each="country : ${T(app.user.model.Country).values()}" th:value="${country}" th:text="${#strings.capitalize(#strings.toLowerCase(country))}"></option>
-        </select>
+            <label for="country">Country</label>
+            <select name="country" id="country" th:field="*{country}">
+                <option th:each="country : ${T(app.user.model.Country).values()}" th:value="${country}" th:text="${#strings.capitalize(#strings.toLowerCase(country))}"></option>
+            </select>
 
         <button>Register</button>
         <p class="form-already">Already have an account? <a href="/login">Login</a>!</p>
