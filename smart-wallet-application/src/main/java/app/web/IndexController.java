@@ -61,7 +61,7 @@ public class IndexController {
 
         userService.register(registerRequest);
 
-        return new ModelAndView("redirect:/login");
+        return new ModelAndView("redirect:/home");
     }
 
     @GetMapping("/home")
