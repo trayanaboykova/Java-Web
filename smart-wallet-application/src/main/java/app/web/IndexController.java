@@ -56,7 +56,7 @@ public class IndexController {
         User registeredUser = userService.register(registerRequest);
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("/home");
+        modelAndView.setViewName("home");
         modelAndView.addObject("user", registeredUser);
 
         return modelAndView;
