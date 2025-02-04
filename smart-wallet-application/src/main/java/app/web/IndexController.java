@@ -2,8 +2,11 @@ package app.web;
 
 import app.user.model.User;
 import app.user.service.UserService;
+import app.web.dto.RegisterRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -37,8 +40,26 @@ public class IndexController {
     }
 
     @GetMapping("/register")
-    public String getRegisterPage() {
-        return "register";
+    public ModelAndView getRegisterPage(Model model) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("register");
+        modelAndView.addObject("registerRequest", new RegisterRequest());
+
+
+        return modelAndView;
+    }
+
+    @PostMapping("/register")
+    public ModelAndView registerNewUser(RegisterRequest registerRequest) {
+
+        User registeredUser = userService.register(registerRequest);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("/home");
+        modelAndView.addObject("user", registeredUser);
+
+        return modelAndView;
     }
 
     @GetMapping("/home")
