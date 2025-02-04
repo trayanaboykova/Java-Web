@@ -142,10 +142,10 @@
     <div class="single-section-box home-standard-wallet">
       <div class="default-label-box">
         <p>Standard Wallet</p>
-        <p class="active-wallet-status">ACTIVE</p>
+        <p th:text="${user.wallets[0].status}" th:classappend="${user.wallets[0].status.name() == 'ACTIVE' ? 'active-wallet-status' : 'inactive-wallet-status' }"></p>
       </div>
       <div class="wallet-balance">
-        <p class="balance">18.07 EUR</p>
+        <p th:text="${user.wallets[0].balance + ' EUR'}" class="balance"></p>
         <p class="available-balance-text">Available Balance</p>
       </div>
 
@@ -160,17 +160,17 @@
       <div class="details-section">
         <div class="details-section-container">
           <strong>Wallet id: </strong>
-          <p>dccacda6-12d3-422c-8ad0-23992ef55a1b</p>
+          <p th:text="${user.wallets[0].id}" ></p>
         </div>
         <div class="details-section-container">
           <strong>Last transaction on: </strong>
-          <p>11 Dec 2024 21:32</p>
+          <p th:text="${#temporals.format(user.wallets[0].updatedOn, 'dd MMM YYYY HH:mm')}"></p>
         </div>
       </div>
     </div>
     <div class="single-section-box home-subscription">
       <div class="default-label-box">
-        <p>ULTIMATE SUBSCRIPTION</p>
+        <p th:text="${user.subscriptions[0].type + ' SUBSCRIPTION'}"></p>
       </div>
       <table class="styled-table">
         <thead>
@@ -183,10 +183,12 @@
         </thead>
         <tbody>
         <tr>
-          <td><span class="status active">ACTIVE</span></td>
-          <td>Monthly</td>
-          <td>49.99 EUR</td>
-          <td>Automatic</td>
+          <td th:if="${user.subscriptions[0].status.name() == 'ACTIVE'}"><span class="status active">ACTIVE</span></td>
+          <td th:if="${user.subscriptions[0].status.name() == 'COMPLETED'}"><span class="status completed">COMPLETED</span></td>
+          <td th:if="${user.subscriptions[0].status.name() == 'TERMINATED'}"><span class="status terminated">TERMINATED</span></td>
+          <td th:text="${#strings.capitalize(#strings.toLowerCase(user.subscriptions[0].period.name()))}"></td>
+          <td th:text="${user.subscriptions[0].price + ' EUR'}"></td>
+          <td th:text="${user.subscriptions[0].renewalAllowed == true ? 'Automatic' : 'Not Automatic'}"></td>
         </tr>
         </tbody>
       </table>
@@ -199,11 +201,11 @@
       <div class="details-section">
         <div class="details-section-container">
           <strong>Subscription id: </strong>
-          <p>126af97e-46af-4596-900e-1609c4769c90</p>
+          <p th:text="${user.subscriptions[0].id}"></p>
         </div>
         <div class="details-section-container">
           <strong>Subscribe until: </strong>
-          <p>11 Jan 2025 21:29</p>
+          <p th:text="${#temporals.format(user.subscriptions[0].completedOn, 'dd MMM YYYY HH:mm')}"></p>
         </div>
       </div>
     </div>
