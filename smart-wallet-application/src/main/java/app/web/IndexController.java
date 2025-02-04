@@ -3,8 +3,10 @@ package app.web;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.RegisterRequest;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,21 +53,21 @@ public class IndexController {
     }
 
     @PostMapping("/register")
-    public ModelAndView registerNewUser(RegisterRequest registerRequest) {
+    public ModelAndView registerNewUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
 
-        User registeredUser = userService.register(registerRequest);
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("register");
+        }
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
-        modelAndView.addObject("user", registeredUser);
+        userService.register(registerRequest);
 
-        return modelAndView;
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/home")
     public ModelAndView getHomePage() {
 
-        User user = userService.getById(UUID.fromString("3467407c-9663-4fc7-a771-9acb7a6f721f")); //TODO: remove hardcoding
+        User user = userService.getById(UUID.fromString("928e3fb3-f736-4482-be6b-80ead9fdabff")); //TODO: remove hardcoding
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
