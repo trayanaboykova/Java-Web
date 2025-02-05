@@ -35,7 +35,14 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ModelAndView getTransactionById(@PathVariable UUID id, Model model) {
-        return null;
+    public ModelAndView getTransactionById(@PathVariable UUID id) {
+
+        Transaction transaction = transactionService.getById(id);
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("transaction-result");
+        modelAndView.addObject("transaction", transaction);
+
+        return modelAndView;
     }
 }
