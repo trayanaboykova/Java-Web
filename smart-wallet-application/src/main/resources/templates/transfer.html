@@ -106,7 +106,7 @@
           <label for="walletId">Select Wallet</label>
           <select id="walletId" name="fromWalletId" required="" th:field="*{fromWalletId}">
             <option value="" selected disabled="">Select your wallet</option>
-            <option th:each="wallet : ${user.wallets}" th:value="${wallet.id}" th:text="${'Standasrt Wallet - ' + wallet.balance + ' EUR'}"></option>
+            <option th:each="wallet : ${user.wallets}" th:value="${wallet.id}" th:text="${'Standart Wallet - ' + wallet.balance + ' EUR'}"></option>
           </select>
 
           <label for="toUsername">Recipient Username</label>

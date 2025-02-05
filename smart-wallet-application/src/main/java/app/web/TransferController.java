@@ -58,7 +58,7 @@ public class TransferController {
 
         Transaction transaction = walletService.transferFunds(user, transferRequest);
 
-        return new ModelAndView("redirect:/transactions" + transaction.getId());
+        return new ModelAndView("redirect:/transactions/" + transaction.getId());
     }
 
 }
