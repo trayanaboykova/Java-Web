@@ -2,6 +2,7 @@ package app.web;
 
 import app.user.model.User;
 import app.user.service.UserService;
+import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -37,8 +38,24 @@ public class IndexController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage() {
-        return "login";
+    public ModelAndView getLoginPage(Model model) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("login");
+        modelAndView.addObject("loginRequest", new LoginRequest());
+
+        return modelAndView;
+    }
+
+    @PostMapping("/login")
+    public String login(@Valid LoginRequest loginRequest, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+
+        userService.login(loginRequest);
+        return "redirect:/home";
     }
 
     @GetMapping("/register")
