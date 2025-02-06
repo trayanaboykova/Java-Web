@@ -2,8 +2,8 @@ package app.web;
 
 import app.transaction.model.Transaction;
 import app.transaction.service.TransactionService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +23,10 @@ public class TransactionController {
     }
 
     @GetMapping
-    public ModelAndView getAllTransactions(Model model) {
+    public ModelAndView getAllTransactions(HttpSession session) {
 
-        List<Transaction> transactions = transactionService.getAllByOwnerId(UUID.fromString("3467407c-9663-4fc7-a771-9acb7a6f721f"));
+        UUID userId = (UUID) session.getAttribute("user_id");
+        List<Transaction> transactions = transactionService.getAllByOwnerId(userId);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("transactions");
