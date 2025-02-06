@@ -4,6 +4,7 @@ import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,14 +48,18 @@ public class IndexController {
         return modelAndView;
     }
 
+    // HttpSession session = създава нова сесия за тази заявка
+    // Autowiring of HttpSession session = създава нова сесия за тази заявка (ако няма вече сесия)
     @PostMapping("/login")
-    public String login(@Valid LoginRequest loginRequest, BindingResult bindingResult) {
+    public String login(@Valid LoginRequest loginRequest, BindingResult bindingResult, HttpSession session) {
 
         if (bindingResult.hasErrors()) {
             return "login";
         }
 
-        userService.login(loginRequest);
+        User loggedInUser = userService.login(loginRequest);
+        session.setAttribute("user_id", loggedInUser.getId());
+
         return "redirect:/home";
     }
 
@@ -82,9 +87,10 @@ public class IndexController {
     }
 
     @GetMapping("/home")
-    public ModelAndView getHomePage() {
+    public ModelAndView getHomePage(HttpSession session) {
 
-        User user = userService.getById(UUID.fromString("928e3fb3-f736-4482-be6b-80ead9fdabff")); //TODO: remove hardcoding
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
@@ -92,5 +98,4 @@ public class IndexController {
 
         return modelAndView;
     }
-
 }
