@@ -30,7 +30,7 @@ public class SessionCheckInterceptor  implements HandlerInterceptor {
         // request.getSession(); - взема сесията, ако няма, се създава нова!
         // request.getSession(false); - взема сесията, ако има, ако пък няма, се връща null!
         HttpSession currentUserSession = request.getSession(false);
-        if (currentUserSession != null) {
+        if (currentUserSession == null) {
             response.sendRedirect("/login");
             return false;
         }
