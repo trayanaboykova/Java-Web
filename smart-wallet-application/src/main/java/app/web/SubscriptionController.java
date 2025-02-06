@@ -1,6 +1,5 @@
 package app.web;
 
-import app.subscription.repository.SubscriptionRepository;
 import app.user.model.User;
 import app.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,9 +26,10 @@ public class SubscriptionController {
    }
 
     @GetMapping("/history")
-    public ModelAndView getUserSubscriptions() {
+    public ModelAndView getUserSubscriptions(HttpSession session) {
 
-        User user = userService.getById(UUID.fromString("3467407c-9663-4fc7-a771-9acb7a6f721f"));
+        UUID userId = (UUID) session.getAttribute("user_id");
+        User user = userService.getById(userId);
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("subscription-history");
