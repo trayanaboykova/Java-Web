@@ -12,11 +12,13 @@ import app.user.model.User;
 import app.wallet.service.WalletService;
 import app.web.dto.UpgradeRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -26,17 +28,20 @@ public class SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
     private final WalletService walletService;
 
-    public SubscriptionService(SubscriptionRepository subscriptionRepository, WalletService walletService) {
+    @Autowired
+    public SubscriptionService(SubscriptionRepository subscriptionRepository,
+                               WalletService walletService) {
+
         this.subscriptionRepository = subscriptionRepository;
         this.walletService = walletService;
     }
 
-    public void createDefaultSubscription(User user) {
+    public Subscription createDefaultSubscription(User user) {
 
         Subscription subscription = subscriptionRepository.save(initializeSubscription(user));
+        log.info("Successfully create new subscription with id [%s] and type [%s].".formatted(subscription.getId(), subscription.getType()));
 
-        log.info("Successfully created a new subscription with id [%s] and type [%s].".formatted(subscription.getId(), subscription.getType()));
-
+        return subscription;
     }
 
     private Subscription initializeSubscription(User user) {
@@ -59,9 +64,8 @@ public class SubscriptionService {
     public Transaction upgrade(User user, SubscriptionType subscriptionType, UpgradeRequest upgradeRequest) {
 
         Optional<Subscription> optionalSubscription = subscriptionRepository.findByStatusAndOwnerId(SubscriptionStatus.ACTIVE, user.getId());
-
         if (optionalSubscription.isEmpty()) {
-            throw new DomainException("No active subscription has been found for user with id [%s].".formatted(user.getId()));
+            throw new DomainException("No active subscription has been found for user with id [%s]".formatted(user.getId()));
         }
 
         Subscription currentSubscription = optionalSubscription.get();
@@ -82,9 +86,9 @@ public class SubscriptionService {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime completedOn;
         if (subscriptionPeriod == SubscriptionPeriod.MONTHLY) {
-            completedOn = now.plusMonths(1);
+            completedOn= now.plusMonths(1);
         } else {
-            completedOn = now.plusYears(1);
+            completedOn= now.plusYears(1);
         }
 
         Subscription newSubscription = Subscription.builder()
@@ -108,6 +112,7 @@ public class SubscriptionService {
     }
 
     private BigDecimal getSubscriptionPrice(SubscriptionType subscriptionType, SubscriptionPeriod subscriptionPeriod) {
+
         if (subscriptionType == SubscriptionType.DEFAULT) {
             return BigDecimal.ZERO;
         } else if (subscriptionType == SubscriptionType.PREMIUM && subscriptionPeriod == SubscriptionPeriod.MONTHLY) {
@@ -119,5 +124,26 @@ public class SubscriptionService {
         } else {
             return new BigDecimal("499.99");
         }
+    }
+
+    public List<Subscription> getAllSubscriptionsReadyForRenewal() {
+
+        return subscriptionRepository.findAllByStatusAndCompletedOnLessThanEqual(SubscriptionStatus.ACTIVE, LocalDateTime.now());
+    }
+
+    public void markSubscriptionAsCompleted(Subscription subscription) {
+
+        subscription.setStatus(SubscriptionStatus.COMPLETED);
+        subscription.setCompletedOn(LocalDateTime.now());
+
+        subscriptionRepository.save(subscription);
+    }
+
+    public void markSubscriptionAsTerminated(Subscription subscription) {
+
+        subscription.setStatus(SubscriptionStatus.TERMINATED);
+        subscription.setCompletedOn(LocalDateTime.now());
+
+        subscriptionRepository.save(subscription);
     }
 }
