@@ -6,7 +6,7 @@
     background-color: #e9ecef;
 }
 
-.bg-nav{
+.bg-nav {
     background-color: rgba(0, 0, 0, 27%);
 }
 
@@ -54,25 +54,25 @@ footer {
     left: 0;
 }
 
-.container{
+.container {
     width: 90%;
 }
 
-.text-stroke{
-    text-shadow:
-            0.07em 0 white,
-            0 0.07em white,
-            -0.07em 0 white,
-            0 -0.07em white;
+.text-stroke {
+    text-shadow: 0.07em 0 white,
+    0 0.07em white,
+    -0.07em 0 white,
+    0 -0.07em white;
 }
 
-.my-text-color{
-    color: yellow!important;
+.my-text-color {
+    color: yellow !important;
 }
 
-#big-div{
+#big-div {
 }
 
-.badge-secondary{
+.badge-secondary {
     background-color: #720a75;
 }
+

@@ -1,42 +1,22 @@
-package com.dictionaryapp.model.entity;
-
-import jakarta.persistence.*;
+package com.dictionaryapp.model.dto;
 
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "words")
-public class Word {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+// TODO: Validation
+public class AddWordDto {
 
-    @Column(nullable = false)
     private String term;
 
-    @Column(nullable = false)
     private String translation;
 
     private String example;
 
-    @Column(nullable = false)
     private LocalDate inputDate;
 
-    @ManyToOne(optional = false)
-    private Language language;
+    private String language;
 
-    @ManyToOne(optional = false)
-    private User addedBy;
+    public AddWordDto() {
 
-    public Word() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTerm() {
@@ -71,19 +51,11 @@ public class Word {
         this.inputDate = inputDate;
     }
 
-    public Language getLanguage() {
+    public String getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(String language) {
         this.language = language;
-    }
-
-    public User getAddedBy() {
-        return addedBy;
-    }
-
-    public void setAddedBy(User addedBy) {
-        this.addedBy = addedBy;
     }
 }

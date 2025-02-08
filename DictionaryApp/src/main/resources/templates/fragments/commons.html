@@ -33,7 +33,7 @@
                 <li th:if="${@userSession.isUserLoggedIn()}"
                         class="nav-item col-md-4">
                     <form th:action="@{/logout}" th:method="POST">
-                        <a class="nav-link my-text-color active h5 " th:href="@{/index}">Logout</a>
+                        <button type="submit" class="nav-link my-text-color active h5 btn btn-link border-0 opacity-100 font-weight-bold" style="font-size: 1.05rem;">Logout</button>
                     </form>
                 </li>
             </ul>

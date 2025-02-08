@@ -26,6 +26,9 @@ public class HomeController {
         if (!userSession.isUserLoggedIn()) {
             return "redirect:/";
         }
+
+        // TODO: Fetch words for each category
+        
         return "home";
     }
 }
