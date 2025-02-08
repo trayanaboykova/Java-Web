@@ -2,6 +2,7 @@ package com.dictionaryapp.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,14 @@ public class Language {
     private Set<Word> words;
 
     public Language() {
+        this.words = new HashSet<>();
+    }
+
+    public Language(LanguageEnum languageName, String description) {
+        super();
+
+        this.languageName = languageName;
+        this.description = description;
     }
 
     public long getId() {
