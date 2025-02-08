@@ -28,7 +28,7 @@ public class HomeController {
         }
 
         // TODO: Fetch words for each category
-        
+
         return "home";
     }
 }
