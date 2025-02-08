@@ -15,4 +15,17 @@ public class UserSession {
         this.id = user.getId();
         this.username = user.getUsername();
     }
+
+    public boolean isUserLoggedIn() {
+        return id != 0;
+    }
+
+    public void logout() {
+        id = 0;
+        username = "";
+    }
+
+    public String username() {
+        return username;
+    }
 }
