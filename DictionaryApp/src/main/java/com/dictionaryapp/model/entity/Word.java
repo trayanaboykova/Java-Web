@@ -1,7 +1,15 @@
 package com.dictionaryapp.model.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -20,7 +28,7 @@ public class Word {
     private String example;
 
     @Column(nullable = false)
-    private LocalDate inputDate;
+    private LocalDate date;
 
     @ManyToOne(optional = false)
     private Language language;
@@ -28,8 +36,7 @@ public class Word {
     @ManyToOne(optional = false)
     private User addedBy;
 
-    public Word() {
-    }
+    public Word() {}
 
     public long getId() {
         return id;
@@ -63,12 +70,12 @@ public class Word {
         this.example = example;
     }
 
-    public LocalDate getInputDate() {
-        return inputDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setInputDate(LocalDate inputDate) {
-        this.inputDate = inputDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Language getLanguage() {

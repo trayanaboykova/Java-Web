@@ -1,9 +1,11 @@
 package com.dictionaryapp.model.dto;
 
+import jakarta.validation.constraints.PastOrPresent;
+
 import java.time.LocalDate;
 
 // TODO: Validation
-public class AddWordDto {
+public class AddWordDTO {
 
     private String term;
 
@@ -15,9 +17,7 @@ public class AddWordDto {
 
     private String language;
 
-    public AddWordDto() {
-
-    }
+    public AddWordDTO() {}
 
     public String getTerm() {
         return term;

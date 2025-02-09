@@ -15,10 +15,10 @@
                 <label for="username" class="h4 mb-2 text-white">Username</label>
             </div>
 
-        <!--        Example: Render errors messages with th:errorclass "is-invalid" and class "invalid-feedback" - you can make it differently. -->
-        <!--        <input th:field="*{username}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control"-->
-        <!--               id="username" name="username"/>-->
-        <!--        <small class="invalid-feedback text-danger">Username error message</small>-->
+            <!--        Example: Render errors messages with th:errorclass "is-invalid" and class "invalid-feedback" - you can make it differently. -->
+            <!--        <input th:field="*{username}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control"-->
+            <!--               id="username" name="username"/>-->
+            <!--        <small class="invalid-feedback text-danger">Username error message</small>-->
 
             <input
                     type="text"
@@ -28,7 +28,14 @@
                     th:field="*{username}"
                     th:classappend="${#fields.hasErrors('username') ? 'is-invalid alert-danger' : ''}"
             />
-            <small class="invalid-feedback text-danger">Username error message</small>
+            <small
+
+                    th:each="error: ${#fields.errors('username')}"
+                    th:text="${error}"
+                    class="invalid-feedback text-danger">
+                Username error message
+            </small>
+            <!--            <small class="invalid-feedback text-danger">Username error message</small>-->
         </div>
 
         <div class="form-group">

@@ -6,6 +6,7 @@ import com.dictionaryapp.repo.LanguageRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Component
@@ -18,24 +19,24 @@ public class InitLanguages implements CommandLineRunner {
             LanguageEnum.ITALIAN, "A Romance language spoken in Italy and parts of Switzerland, with rich cultural heritage. Known for its melodious sounds, it's a gateway to Italian art, cuisine, and history."
     );
 
-    private final LanguageRepository languagerepository;
+    private LanguageRepository languageRepository;
 
-    public InitLanguages(LanguageRepository languagerepository) {
-        this.languagerepository = languagerepository;
+    public InitLanguages(LanguageRepository languageRepository) {
+        this.languageRepository = languageRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        long count = languagerepository.count();
+        long count = languageRepository.count();
 
         if (count > 0) {
             return;
         }
 
-            for (LanguageEnum languageEnum : languageDescriptions.keySet()) {
-                Language language = new Language(languageEnum, languageDescriptions.get(languageEnum));
+        for (LanguageEnum languageEnum : languageDescriptions.keySet()) {
+            Language language = new Language(languageEnum, languageDescriptions.get(languageEnum));
 
-                languagerepository.save(language);
-            }
+            languageRepository.save(language);
         }
     }
+}

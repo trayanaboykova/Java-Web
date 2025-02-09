@@ -13,7 +13,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -26,22 +25,26 @@ public class UserController {
     }
 
     @ModelAttribute("loginData")
-    public UserLoginDTO createEmptyLoginDTO() {
+    public UserLoginDTO loginData() {
         return new UserLoginDTO();
     }
 
     @GetMapping("/register")
     public String viewRegister() {
-
         return "register";
     }
 
     @PostMapping("/register")
-    public String doRegister(@Valid UserRegisterDTO data, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-
+    public String doRegister(
+            @Valid UserRegisterDTO data,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
+    ) {
         if (bindingResult.hasErrors() || !userService.register(data)) {
             redirectAttributes.addFlashAttribute("registerData", data);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.registerData", bindingResult);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.registerData", bindingResult);
+
             return "redirect:/register";
         }
 
@@ -54,10 +57,15 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String doLogin(@Valid UserLoginDTO data, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String doLogin(
+            @Valid UserLoginDTO data,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
+    ) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("loginData", data);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.loginData", bindingResult);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.loginData", bindingResult);
 
             return "redirect:/login";
         }
@@ -68,7 +76,7 @@ public class UserController {
             redirectAttributes.addFlashAttribute("loginData", data);
             redirectAttributes.addFlashAttribute("userPassMismatch", true);
 
-            return "redirect:/login";
+            return "redirect:login";
         }
 
         return "redirect:/home";
@@ -77,6 +85,7 @@ public class UserController {
     @PostMapping("/logout")
     public String logout() {
         userService.logout();
+
         return "redirect:/";
     }
 }

@@ -5,7 +5,6 @@ import com.dictionaryapp.model.dto.UserLoginDTO;
 import com.dictionaryapp.model.dto.UserRegisterDTO;
 import com.dictionaryapp.model.entity.User;
 import com.dictionaryapp.repo.UserRepository;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,10 +19,12 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserSession userSession;
 
-    public UserService(UserRepository userRepository,
-                       ModelMapper modelMapper,
-                       PasswordEncoder passwordEncoder,
-                       UserSession userSession) {
+    public UserService(
+            UserRepository userRepository,
+            ModelMapper modelMapper,
+            PasswordEncoder passwordEncoder,
+            UserSession userSession
+    ) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
@@ -35,28 +36,28 @@ public class UserService {
             return false;
         }
 
-        boolean isUsernameOrEmailTaken = userRepository.existsByUsernameOrEmail(data.getUsername(), data.getEmail());
-
+        boolean isUsernameOrEmailTaken =
+                userRepository.existsByUsernameOrEmail(data.getUsername(), data.getEmail());
         if (isUsernameOrEmailTaken) {
             return false;
         }
 
         User mapped = modelMapper.map(data, User.class);
-        mapped.setPassword(passwordEncoder.encode(data.getPassword()));
+        mapped.setPassword(passwordEncoder.encode(mapped.getPassword()));
 
         userRepository.save(mapped);
 
         return true;
     }
 
-    public boolean login(@Valid UserLoginDTO data) {
-        Optional<User> byUsername = userRepository.findByUsername(data.getUsername());
+    public boolean login(UserLoginDTO data) {
+        Optional<User> byUsername =
+                userRepository.findByUsername(data.getUsername());
 
-        /* byUsername
-                .filter(...)
-                .map(user -> userSession.login(user))
-                .isPresent();
-         **/
+//        byUsername
+//            .filter(...)
+//            .map(user -> userSession.login(user))
+//            .isPresent();
 
         if (byUsername.isEmpty()) {
             return false;
