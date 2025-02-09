@@ -79,4 +79,8 @@ public class User {
     public void setFavouriteRecipes(List<Recipe> favouriteRecipes) {
         this.favouriteRecipes = favouriteRecipes;
     }
+
+    public void addFavourite(Recipe recipe) {
+        this.favouriteRecipes.add(recipe);
+    }
 }
