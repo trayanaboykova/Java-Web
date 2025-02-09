@@ -16,7 +16,8 @@ public class InitService implements CommandLineRunner {
     private final Map<CategoryName, String> descriptions = Map.of(
             CategoryName.MAIN_DISH, "Heart of the meal, substantial and satisfying; main dish delights taste buds.",
             CategoryName.DESSERT, "Sweet finale, indulgent and delightful; dessert crowns the dining experience with joy.",
-            CategoryName.COCKTAIL, "Sip of sophistication, cocktails blend flavors, creating a spirited symphony in every glass.");
+            CategoryName.COCKTAIL, "Sip of sophistication, cocktails blend flavors, creating a spirited symphony in every glass."
+    );
 
     private final CategoryRepository categoryRepository;
 
@@ -26,7 +27,7 @@ public class InitService implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        long count = categoryRepository.count();
+        long count = this.categoryRepository.count();
 
         if (count > 0) {
             return;
