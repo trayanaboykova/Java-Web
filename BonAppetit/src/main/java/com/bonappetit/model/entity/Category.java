@@ -12,6 +12,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
     private CategoryName name;
 
@@ -22,6 +23,13 @@ public class Category {
 
     public Category() {
         this.recipes = new ArrayList<>();
+    }
+
+    public Category(CategoryName name, String description) {
+        this();
+
+        this.name = name;
+        this.description = description;
     }
 
     public long getId() {
