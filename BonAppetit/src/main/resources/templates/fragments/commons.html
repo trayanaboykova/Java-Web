@@ -55,7 +55,7 @@
 <footer class="footer bg-transparent  py-2">
     <div class="container-fluid text-center">
         <div class="footer-background h5 text-primary text-stroke fixed-bottom">
-            &copy; Spring team 2023. All rights reserved.
+            &copy; Spring team <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>. All rights reserved.
         </div>
     </div>
 </footer>
