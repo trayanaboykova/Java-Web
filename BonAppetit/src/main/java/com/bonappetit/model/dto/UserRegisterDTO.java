@@ -10,6 +10,7 @@ public class UserRegisterDTO {
     @Size(min = 3, max = 20)
     private String username;
 
+    @NotNull
     @Email
     private String email;
 
