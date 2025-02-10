@@ -38,10 +38,15 @@ public class HomeController {
             return "redirect:/";
         }
 
-        // TODO: Fetch words for each category
+        List<Word> germanWords = wordsService.findGerman();
         List<Word> spanishWords = wordsService.findSpanish();
+        List<Word> frenchWords = wordsService.findFrench();
+        List<Word> italianWords = wordsService.findItalian();
 
+        model.addAttribute("germanWords", germanWords);
         model.addAttribute("spanishWords", spanishWords);
+        model.addAttribute("frenchWords", frenchWords);
+        model.addAttribute("italianWords", italianWords);
 
         return "home";
     }

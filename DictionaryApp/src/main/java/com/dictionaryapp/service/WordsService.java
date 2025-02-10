@@ -48,6 +48,43 @@ public class WordsService {
         return wordRepository.findByLanguageAndAddedBy(language, user.get());
     }
 
+    public List<Word> findGerman() {
+        Optional<User> user = userRepository.findById(userSession.userId());
+
+        if (user.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Language language = languageRepository.findByLanguageName(LanguageEnum.GERMAN);
+
+        return wordRepository.findByLanguageAndAddedBy(language, user.get());
+    }
+
+    public List<Word> findFrench() {
+        Optional<User> user = userRepository.findById(userSession.userId());
+
+        if (user.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Language language = languageRepository.findByLanguageName(LanguageEnum.FRENCH);
+
+        return wordRepository.findByLanguageAndAddedBy(language, user.get());
+    }
+
+    public List<Word> findItalian() {
+        Optional<User> user = userRepository.findById(userSession.userId());
+
+        if (user.isEmpty()) {
+            return new ArrayList<>();
+        }
+
+        Language language = languageRepository.findByLanguageName(LanguageEnum.ITALIAN);
+
+        return wordRepository.findByLanguageAndAddedBy(language, user.get());
+    }
+
+
     public void delete(String id) {
         userRepository.findById(userSession.userId())
                 .flatMap(user -> wordRepository.findByIdAndAddedBy(id, user))
