@@ -5,6 +5,7 @@ import com.dictionaryapp.service.WordsService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,8 @@ public class WordController {
     }
 
     @GetMapping("/words")
-    public String viewAddWord() {
+    public String viewAddWord(Model model) {
+        model.addAttribute("wordData", new AddWordDTO());
         return "word-add";
     }
 
@@ -33,9 +35,9 @@ public class WordController {
             RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("addWordData", data);
+            redirectAttributes.addFlashAttribute("wordData", data);
             redirectAttributes.addAttribute(
-                    "org.springframework.validation.BindingResult.addWordData", bindingResult);
+                    "org.springframework.validation.BindingResult.wordData", bindingResult);
 
             return "redirect:/words";
         }
@@ -57,5 +59,15 @@ public class WordController {
     public String fail() {
         throw new EntityNotFoundException();
     }
+
+    @PostMapping("/home/remove-all")
+    public String removeAllWords() {
+        // Assuming you have a service class to manage words
+        wordsService.removeAllWords();  // This method should delete all words from the database
+
+        // Redirect to the home page or wherever you want to go after removing the words
+        return "redirect:/home";
+    }
+
 
 }

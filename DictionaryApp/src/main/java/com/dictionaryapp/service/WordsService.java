@@ -31,9 +31,36 @@ public class WordsService {
     }
 
     public void add(AddWordDTO data) {
-        Word word = new Word();
+        if (!userSession.isUserLoggedIn()) {
+            throw new IllegalStateException("User not logged in");
+        }
 
-        // TODO: Save and attach correct user + language
+        // Fetch the user from the session
+        Optional<User> userOptional = userRepository.findById(userSession.userId());
+        if (userOptional.isEmpty()) {
+            throw new IllegalStateException("User not found in database");
+        }
+        User user = userOptional.get();
+
+        // Ensure the language is selected and valid
+        if (data.getLanguage() == null || data.getLanguage().isEmpty()) {
+            throw new IllegalArgumentException("Language must be selected");
+        }
+
+        Language language = languageRepository.findByLanguageName(LanguageEnum.valueOf(data.getLanguage()));
+        if (language == null) {
+            throw new IllegalArgumentException("Invalid language selected");
+        }
+
+        Word word = new Word();
+        word.setTerm(data.getTerm());
+        word.setTranslation(data.getTranslation());
+        word.setExample(data.getExample());
+        word.setDate(data.getInputDate());
+        word.setAddedBy(user);
+        word.setLanguage(language);
+
+        wordRepository.save(word);
     }
 
     public List<Word> findSpanish() {
@@ -84,7 +111,6 @@ public class WordsService {
         return wordRepository.findByLanguageAndAddedBy(language, user.get());
     }
 
-
     public void delete(String id) {
         userRepository.findById(userSession.userId())
                 .flatMap(user -> wordRepository.findByIdAndAddedBy(id, user))
@@ -103,5 +129,9 @@ public class WordsService {
 //        }
 //
 //        wordRepository.delete(maybeWord.get());
+    }
+
+    public void removeAllWords() {
+        wordRepository.deleteAll();  // Deletes all records in the words table
     }
 }
