@@ -2,22 +2,23 @@ package com.dictionaryapp.model.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserRegisterDTO {
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotNull
+    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
     private String username;
 
-    @NotBlank
+    @NotBlank(message = "Email cannot be empty")
     @Email
     private String email;
 
-    @NotBlank
-    @Size(min = 3, max = 20)
+    @NotNull
+    @Size(min = 3, max = 20, message = "Password must be between 3 and 20 characters")
     private String password;
 
-    @NotBlank
+    @NotNull
     @Size(min = 3, max = 20)
     private String confirmPassword;
 

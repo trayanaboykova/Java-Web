@@ -76,3 +76,23 @@ footer {
     background-color: #720a75;
 }
 
+/* Custom CSS for invalid fields */
+.form-control.is-invalid {
+    background-color: rgba(159, 8, 8, 0.76) !important;  /* Light red background */
+    border-color: #f5c6cb !important;      /* Red border */
+    color: #721c24 !important;              /* Dark red text */
+}
+
+/* Ensure no conflict with existing styles */
+input.form-control.is-invalid {
+    background-color: #9f0808 !important;  /* Light red background */
+    border-color: #f5c6cb !important;      /* Red border */
+    color: #721c24 !important;              /* Dark red text */
+}
+
+/* Make sure the error message text is red as well */
+.text-danger {
+    color: #721c24 !important;
+}
+
+
