@@ -9,6 +9,6 @@ public class IndexController {
     @GetMapping("/")
     public String getIndexPage() {
 
-        return "home";
+        return "index";
     }
 }
