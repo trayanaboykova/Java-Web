@@ -18,13 +18,13 @@
         </div>
         <div class="links">
             <li>
-                <a href="/">Login</a>
+                <a th:href="@{/login}">Login</a>
             </li>
             <li>
-                <a href="/">Register</a>
+                <a th:href="@{/register}">Register</a>
             </li>
             <li>
-                <a href="/">Logout</a>
+                <a th:href="@{/logout}">Logout</a>
             </li>
         </div>
     </nav>
@@ -32,7 +32,7 @@
 <footer class="footer bg-transparent py-2">
     <div class="container-fluid text-center">
         <div class="footer-background footer-text fixed-bottom">
-            &copy; Spring team 2024. All rights reserved.
+            &copy; Spring team <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>. All rights reserved.
         </div>
     </div>
 </footer>
