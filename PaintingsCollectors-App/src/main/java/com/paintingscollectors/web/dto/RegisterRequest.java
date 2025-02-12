@@ -25,8 +25,4 @@ public class RegisterRequest {
     @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
     private String confirmPassword;
 
-    @AssertTrue(message = "Password and confirm password do not match.")
-    public boolean isPasswordsMatching() {
-        return password.equals(confirmPassword);
-    }
 }

@@ -54,7 +54,7 @@ public class IndexController {
             bindingResult.reject("registrationError", "User with this email or username already exists.");
         }
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors() || !registerRequest.getPassword().equals(registerRequest.getConfirmPassword())) {
             return "register";
         }
 
