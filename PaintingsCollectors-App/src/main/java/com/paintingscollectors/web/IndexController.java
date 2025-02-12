@@ -104,9 +104,13 @@ public class IndexController {
         return modelAndView;
     }
 
-    // TODO: Logout
     @GetMapping("/logout")
-    public String getLogoutPage() {
-        return "";
+    public String getLogoutPage(HttpSession session) {
+
+        // ВАЖНО:
+        // Прекратяваме сесията и редиректваме към индекс или логин
+        session.invalidate();
+
+        return "redirect:/";
     }
 }
