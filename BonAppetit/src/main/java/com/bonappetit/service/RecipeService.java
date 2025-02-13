@@ -74,21 +74,21 @@ public class RecipeService {
     }
 
     @Transactional
-    public void addToFavourites(Long id, long recipeId) {
-        Optional<User> userOpt = userRepository.findById(id);
-
-        if (userOpt.isEmpty()) {
-            return;
-        }
-
+    public void addToFavourites(Long userId, long recipeId) {
+        Optional<User> userOpt = userRepository.findById(userId);
         Optional<Recipe> recipeOpt = recipeRepository.findById(recipeId);
 
-        if (recipeOpt.isEmpty()) {
+        if (userOpt.isEmpty() || recipeOpt.isEmpty()) {
             return;
         }
 
-        userOpt.get().addFavourite(recipeOpt.get());
+        User user = userOpt.get();
+        Recipe recipe = recipeOpt.get();
 
-        userRepository.save(userOpt.get());
+        // Only add if it's not already in the user's favorites
+        if (!user.getFavouriteRecipes().contains(recipe)) {
+            user.addFavourite(recipe);
+            userRepository.save(user);
+        }
     }
 }

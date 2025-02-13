@@ -15,36 +15,47 @@
             th:object="${recipeData}"
     >
 
+        <!-- NAME -->
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
             </div>
             <textarea
-                    type="text"
                     class="form-control"
                     id="name"
-                    name="name"
                     th:field="*{name}"
                     th:errorclass="'is-invalid alert-danger'"
             ></textarea>
-            <small class="invalid-feedback text-danger">Name error message</small>
+
+            <!-- Display validation error for "name" -->
+            <small
+                    class="invalid-feedback text-danger"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}">
+            </small>
         </div>
 
+        <!-- INGREDIENTS -->
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="ingredients" class="h4 mb-2">Ingredients</label>
             </div>
             <textarea
-                    type="text"
                     class="form-control"
                     id="ingredients"
-                    name="ingredients"
                     th:field="*{ingredients}"
                     th:errorclass="'is-invalid alert-danger'"
             ></textarea>
-            <small class="invalid-feedback text-danger">Ingredients error message</small>
+
+            <!-- Display validation error for "ingredients" -->
+            <small
+                    class="invalid-feedback text-danger"
+                    th:if="${#fields.hasErrors('ingredients')}"
+                    th:errors="*{ingredients}">
+            </small>
         </div>
 
+        <!-- CATEGORY -->
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="category" class="h4 mb-2">Category</label>
@@ -52,7 +63,6 @@
             <select
                     class="browser-default custom-select"
                     id="category"
-                    name="category"
                     th:field="*{category}"
                     th:errorclass="'is-invalid alert-danger'"
             >
@@ -62,14 +72,21 @@
                 <option value="COCKTAIL">Cocktail</option>
             </select>
 
-            <small class="invalid-feedback text-danger">Category error message</small>
+            <!-- Display validation error for "category" -->
+            <small
+                    class="invalid-feedback text-danger"
+                    th:if="${#fields.hasErrors('category')}"
+                    th:errors="*{category}">
+            </small>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3" value="Register">Add recipe</button>
+            <button type="submit" class="btn btn-warning mb-3" value="Register">Add recipe</button>
         </div>
 
     </form>
+
+
 </main>
 <footer th:replace="fragments/commons::footer"></footer>
 </body>

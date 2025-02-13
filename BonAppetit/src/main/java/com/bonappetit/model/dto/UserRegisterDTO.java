@@ -1,21 +1,22 @@
 package com.bonappetit.model.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UserRegisterDTO {
 
     @NotNull
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 20, message = "Username length must be between 3 and 20 characters!")
     private String username;
 
-    @NotNull
+    @NotBlank(message = "Email cannot be empty!")
     @Email
     private String email;
 
     @NotNull
-    @Size(min = 3, max = 20)
+    @Size(min = 3, max = 20, message = "Password length must be between 3 and 20 characters!")
     private String password;
 
     private String confirmPassword;

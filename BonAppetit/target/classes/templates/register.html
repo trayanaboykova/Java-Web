@@ -14,15 +14,11 @@
             th:action="@{/register}"
             th:object="${registerData}">
 
+        <!-- USERNAME -->
         <div class="form-group">
             <div class="label-holder textCol d-flex justify-content-center">
                 <label for="username" class="h4 mb-2 text-white">Username</label>
             </div>
-
-            <!--        Example: Render errors messages with th:errorclass "is-invalid" and class "invalid-feedback" - you can make it differently. -->
-            <!--        <input th:field="*{username}" th:errorclass="'is-invalid alert-danger'" type="text" class="form-control"-->
-            <!--               id="username" name="username"/>-->
-            <!--        <small class="invalid-feedback text-danger">Username error message</small>-->
 
             <input
                     type="text"
@@ -31,9 +27,17 @@
                     name="username"
                     th:field="*{username}"
                     th:errorclass="'is-invalid alert-danger'"/>
-            <small class="invalid-feedback text-danger">Username error message</small>
+
+            <!-- Display the validation error (if any) -->
+            <small
+                    class="invalid-feedback text-danger"
+                    th:if="${#fields.hasErrors('username')}"
+                    th:errors="*{username}">
+                <!-- Thymeleaf will place the actual error message here -->
+            </small>
         </div>
 
+        <!-- EMAIL -->
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="email" class="h4 mb-2">Email</label>
@@ -45,9 +49,15 @@
                     name="email"
                     th:field="*{email}"
                     th:errorclass="'is-invalid alert-danger'"/>
-            <small class="invalid-feedback text-danger">Email error message</small>
+
+            <small
+                    class="invalid-feedback text-danger"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}">
+            </small>
         </div>
 
+        <!-- PASSWORD -->
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="password" class="h4 mb-2">Password</label>
@@ -59,9 +69,15 @@
                     name="password"
                     th:field="*{password}"
                     th:errorclass="'is-invalid alert-danger'"/>
-            <small class="invalid-feedback text-danger">Password error message</small>
+
+            <small
+                    class="invalid-feedback text-danger"
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}">
+            </small>
         </div>
 
+        <!-- CONFIRM PASSWORD (no built-in validation constraints, so no errors by default) -->
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
@@ -75,10 +91,12 @@
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3" value="Register">Register</button>
+            <button type="submit" class="btn btn-warning mb-3" value="Register">Register</button>
         </div>
 
     </form>
+
+
 </main>
 <footer th:replace="fragments/commons::footer"></footer>
 </body>

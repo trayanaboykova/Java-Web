@@ -17,9 +17,10 @@
         <!--    Example: Render errors messages with fields.errors - you can make it differently. -->
         <!--    <div th:each="error: ${#fields.errors()}" th:text="${error}" class="text-danger">Error messages</div>-->
 
-        <div th:if="${loginError}" class="text-danger">Error messages</div>
+        <div th:if="${loginError}" class="text-danger"></div>
         <div th:if="${loginError}" class="text-danger">Incorrect username or password!</div>
 
+        <!-- USERNAME FIELD -->
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
                 <label for="username" class="h3 mb-2">Username</label>
@@ -29,19 +30,36 @@
                     class="form-control"
                     id="username"
                     name="username"
-                    th:field="*{username}"
-            />
+                    th:field="*{username}" />
+
+            <!-- Field-specific error display -->
+            <p th:if="${#fields.hasErrors('username')}"
+               th:errors="*{username}"
+               class="text-danger">
+            </p>
         </div>
 
+        <!-- PASSWORD FIELD -->
         <div class="form-group">
             <div class="label-holder text-white d-flex justify-content-center">
                 <label for="password" class="h3 mb-2">Password</label>
             </div>
-            <input type="password" class="form-control" id="password" name="password"/>
+            <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    th:field="*{password}" />
+
+            <!-- Field-specific error display -->
+            <p th:if="${#fields.hasErrors('password')}"
+               th:errors="*{password}"
+               class="text-danger">
+            </p>
         </div>
 
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-warning  mb-3">Login</button>
+            <button type="submit" class="btn btn-warning mb-3">Login</button>
         </div>
 
     </form>
