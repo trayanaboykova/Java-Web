@@ -43,10 +43,17 @@ public class HomeController {
         List<Word> frenchWords = wordsService.findFrench();
         List<Word> italianWords = wordsService.findItalian();
 
+        int allWordsCount = germanWords.size()
+                + spanishWords.size()
+                + frenchWords.size()
+                + italianWords.size();
+
+
         model.addAttribute("germanWords", germanWords);
         model.addAttribute("spanishWords", spanishWords);
         model.addAttribute("frenchWords", frenchWords);
         model.addAttribute("italianWords", italianWords);
+        model.addAttribute("allWordsCount", allWordsCount);
 
         return "home";
     }

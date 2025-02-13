@@ -8,13 +8,14 @@ import java.time.LocalDate;
 public class AddWordDTO {
 
     @NotNull(message = "Term is required")
-    @Size(min = 1, message = "Term cannot be empty")
+    @Size(min = 2, max = 40, message = "The term length must be between 2 and 40 characters.")
     private String term;
 
     @NotNull(message = "Translation is required")
-    @Size(min = 1, message = "Translation cannot be empty")
+    @Size(min = 2, max = 80, message = "The translation length must be between 2 and 80 characters.")
     private String translation;
 
+    @Size(max = 200, message = "The example length must be between 2 and 200 characters.")
     private String example;
 
     @NotNull(message = "Input date is required")

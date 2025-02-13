@@ -19,7 +19,7 @@ public class InitLanguages implements CommandLineRunner {
             LanguageEnum.ITALIAN, "A Romance language spoken in Italy and parts of Switzerland, with rich cultural heritage. Known for its melodious sounds, it's a gateway to Italian art, cuisine, and history."
     );
 
-    private LanguageRepository languageRepository;
+    private final LanguageRepository languageRepository;
 
     public InitLanguages(LanguageRepository languageRepository) {
         this.languageRepository = languageRepository;

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class WordController {
 
-    private WordsService wordsService;
+    private final WordsService wordsService;
 
     public WordController(WordsService wordsService) {
         this.wordsService = wordsService;
@@ -24,7 +24,9 @@ public class WordController {
 
     @GetMapping("/words")
     public String viewAddWord(Model model) {
-        model.addAttribute("wordData", new AddWordDTO());
+        if (!model.containsAttribute("wordData")) {
+            model.addAttribute("wordData", new AddWordDTO());
+        }
         return "word-add";
     }
 
@@ -36,7 +38,7 @@ public class WordController {
     ) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("wordData", data);
-            redirectAttributes.addAttribute(
+            redirectAttributes.addFlashAttribute(
                     "org.springframework.validation.BindingResult.wordData", bindingResult);
 
             return "redirect:/words";

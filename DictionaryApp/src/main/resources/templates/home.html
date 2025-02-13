@@ -124,7 +124,11 @@
                 </div>
             </div>
         </div>
-        <a href="/home/remove-all" class="btn btn-danger">Remove all {allWordsCount} words</a>
+        <form th:action="@{/home/remove-all}" method="post">
+            <button type="submit" class="btn btn-danger">
+                Remove all <span th:text="${allWordsCount}"></span> words
+            </button>
+        </form>
     </div>
 </main>
 <footer th:replace="~{fragments/commons::footer}"></footer>
