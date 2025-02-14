@@ -30,9 +30,9 @@ public class User {
     private String email;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
-    private List<Stamp> addedStamps;
+    private List<Stamp> stamps;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<WishedStamp> wishedStamps;
-    
+
 }
