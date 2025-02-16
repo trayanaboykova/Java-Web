@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class StoryService {
@@ -29,7 +30,7 @@ public class StoryService {
                 .date(storyRequest.getDate())
                 .addedOn(LocalDate.now())
                 .owner(user)
-                .isVisible(false)
+                .visible(false)
                 .build();
 
         storyRepository.save(story);
@@ -37,5 +38,16 @@ public class StoryService {
 
     public List<Story> getAllStories() {
         return storyRepository.findAll();
+    }
+
+    public List<Story> getSharedStories() {
+        return storyRepository.findAllByVisibleTrue();
+    }
+
+    public void shareStory(UUID storyId) {
+        Story story = storyRepository.findById(storyId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid story Id:" + storyId));
+        story.setVisible(true);
+        storyRepository.save(story);
     }
 }

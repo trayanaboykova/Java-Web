@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Repository
 public interface StoryRepository extends JpaRepository<Story, UUID> {
-
+    List<Story> findAllByVisibleTrue();
 }

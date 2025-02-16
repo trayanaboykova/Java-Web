@@ -87,13 +87,22 @@ public class IndexController {
         User user = userService.getById(userId);
 
         List<Story> allStories = storyService.getAllStories();
+        List<Story> commonStories = storyService.getSharedStories();
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         modelAndView.addObject("user", user);
         modelAndView.addObject("allStories", allStories);
+        modelAndView.addObject("commonStories", commonStories);
 
         return modelAndView;
+    }
+
+    @GetMapping("/logout")
+    public String getLogoutPage(HttpSession session) {
+        session.invalidate();
+
+        return "redirect:/";
     }
 
 }

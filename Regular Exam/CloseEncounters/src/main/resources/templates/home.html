@@ -16,7 +16,9 @@
                     <div class="profile-header">
                         <img th:src="${#strings.isEmpty(user.profilePicture) ? 'https://cdn0.iconfinder.com/data/icons/cryptocurrency-137/128/1_profile_user_avatar_account_person-132-256.png' : user.profilePicture}"
                              alt="Profile Picture" class="profile-img">
-                        <h2 class="profile-name" th:text="${user.username}"></h2>
+<!--                        <h2 class="profile-name" th:text="${user.username}"></h2>-->
+                        <h2 class="profile-name" th:text="${(#strings.isEmpty(user.firstName) and #strings.isEmpty(user.lastName)) ? user.username : (user.firstName + ' ' + user.lastName).trim()}"></h2>
+
                         <div class="details-section">
                             <div class="details-section-container">
                                 <strong>User id: </strong>
@@ -66,7 +68,7 @@
                                     <input type="hidden" name="storyId" th:value="${story.id}"/>
                                     <button type="submit">Remove</button>
                                 </form>
-                                <form th:action="@{/shareStory}" method="post">
+                                <form th:action="@{/stories/shareStory}" method="post">
                                     <input type="hidden" name="storyId" th:value="${story.id}"/>
                                     <button type="submit">Share</button>
                                 </form>
@@ -89,7 +91,7 @@
                 <h3 class="my-stories">Common Story Board</h3>
                 <ul>
                     <!--  ONE <li> element is ONE Story from the common stories-->
-                    <li th:each="story : ${allStories}">
+                    <li th:each="story : ${commonStories}">
                         <div class="story-board">
                             <div class="single-story">
                                 <h5>
