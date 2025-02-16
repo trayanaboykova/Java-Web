@@ -9,7 +9,7 @@
 <main>
     <section class="section full-height">
 
-        <form class="welcome login" action="/" method="">
+        <form class="welcome login" th:action="@{/login}" th:method="POST" th:object="${loginRequest}">
 
             <h3>Login</h3>
 
@@ -17,16 +17,16 @@
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="username" class="h3 mb-2">Username</label>
                 </div>
-                <input type="text" placeholder="Username" id="username" name="username">
-                <p class="text-warning">Error Text Here</p>
+                <input type="text" placeholder="Username" id="username" name="username" th:field="*{username}">
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="text-warning">Error Text Here</p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="password" class="h3 mb-2">Password</label>
                 </div>
-                <input type="password" placeholder="Password" id="password" name="password">
-                <p class="text-warning">Error Text Here</p>
+                <input type="password" placeholder="Password" id="password" name="password" th:field="*{password}">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-warning">Error Text Here</p>
             </div>
 
             <button type="submit">Log In</button>
