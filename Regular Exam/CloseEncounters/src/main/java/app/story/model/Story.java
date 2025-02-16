@@ -39,4 +39,5 @@ public class Story {
     private User owner;
 
     private boolean visible;
+
 }

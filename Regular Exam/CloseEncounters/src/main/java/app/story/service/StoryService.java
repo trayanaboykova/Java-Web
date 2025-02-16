@@ -50,4 +50,9 @@ public class StoryService {
         story.setVisible(true);
         storyRepository.save(story);
     }
+
+    public Story getStoryById(UUID id) {
+        return storyRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Story not found for id: " + id));
+    }
 }

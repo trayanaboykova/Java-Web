@@ -1,5 +1,6 @@
 package app.web;
 
+import app.story.model.Story;
 import app.story.service.StoryService;
 import app.user.model.User;
 import app.user.service.UserService;
@@ -9,10 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -64,5 +62,15 @@ public class StoriesController {
         storyService.shareStory(storyId);
         return "redirect:/home";
     }
+
+    @GetMapping("/{id}")
+    public ModelAndView readStory(@PathVariable("id") UUID id) {
+
+        Story story = storyService.getStoryById(id);
+        ModelAndView modelAndView = new ModelAndView("story");
+        modelAndView.addObject("story", story);
+        return modelAndView;
+    }
+
 
 }
