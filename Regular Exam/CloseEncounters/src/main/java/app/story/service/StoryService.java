@@ -55,4 +55,8 @@ public class StoryService {
         return storyRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Story not found for id: " + id));
     }
+
+    public void deleteStoryById(UUID id) {
+        storyRepository.deleteById(id);
+    }
 }

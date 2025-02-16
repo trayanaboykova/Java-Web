@@ -64,7 +64,7 @@
                                 <p>Title: <span th:text="${story.title}">Title</span></p>
                             </div>
                             <div class="buttons">
-                                <form th:action="@{/removeStory}" method="post">
+                                <form th:action="@{/stories/{storyID}(storyID=${story.id})}" th:method="DELETE">
                                     <input type="hidden" name="storyId" th:value="${story.id}"/>
                                     <button type="submit">Remove</button>
                                 </form>

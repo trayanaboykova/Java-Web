@@ -72,5 +72,12 @@ public class StoriesController {
         return modelAndView;
     }
 
+    @DeleteMapping("/{id}")
+    public String deleteStory(@PathVariable UUID id) {
+
+        storyService.deleteStoryById(id);
+
+        return "redirect:/home";
+    }
 
 }
