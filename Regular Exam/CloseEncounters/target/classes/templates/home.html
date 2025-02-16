@@ -55,7 +55,7 @@
                 <h3 class="my-stories">My Stories</h3>
                 <ul>
                     <!--  ONE <li> element is ONE Story -->
-                    <li th:each="story : ${allStories}">
+                    <li th:each="story : ${user.addedStories}">
                         <div class="my-stories-first-row">
                             <div class="story-info">
                                 <p>Kind: <span th:text="${story.kind}">Kind</span></p>
@@ -89,7 +89,7 @@
                 <h3 class="my-stories">Common Story Board</h3>
                 <ul>
                     <!--  ONE <li> element is ONE Story from the common stories-->
-                    <li th:each="story : ${commonStories}">
+                    <li th:each="story : ${allStories}">
                         <div class="story-board">
                             <div class="single-story">
                                 <h5>
