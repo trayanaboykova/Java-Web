@@ -7,51 +7,46 @@
 <body>
 <main>
     <section class="section full-height">
-
-        <form class="welcome login" action="/" method="">
-
-            <h3>Add story</h3>
+        <form class="welcome login" th:action="@{/stories}" method="post" th:object="${storyRequest}">
+            <h3>Add Story</h3>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="title" class="h3 mb-2">Title</label>
                 </div>
-                <input type="text" placeholder="Title" id="title" name="title">
-                <p class="text-warning">Error Text Here</p>
+                <input type="text" placeholder="Title" id="title" th:field="*{title}">
+                <p class="text-warning" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="description" class="h3 mb-2">Description</label>
                 </div>
-                <textarea type="text" placeholder="Description" id="description" name="description"></textarea>
-                <p class="text-warning">Error Text Here</p>
+                <textarea placeholder="Description" id="description" th:field="*{description}"></textarea>
+                <p class="text-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="kind" class="h3 mb-2">Kind</label>
                 </div>
-                <select id="kind" name="kind">
+                <select id="kind" th:field="*{kind}">
                     <option value="">Select kind</option>
-                    <option value="FIRST">FIRST</option>
-                    <option value="SECOND">SECOND</option>
-                    <option value="THIRD">THIRD</option>
-                    <option value="FOURTH">FOURTH</option>
+                    <option th:each="kind : ${T(app.story.model.Kind).values()}" th:value="${kind}"
+                            th:text="${kind}"></option>
                 </select>
-                <p class="text-warning">Error Text Here</p>
+                <p class="text-warning" th:if="${#fields.hasErrors('kind')}" th:errors="*{kind}"></p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="date" class="h3 mb-2">Date</label>
                 </div>
-                <input type="date" placeholder="Date" id="date" name="date">
-                <p class="text-warning">Error Text Here</p>
+                <input type="date" placeholder="Date" id="date" th:field="*{date}">
+                <p class="text-warning" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
             </div>
 
             <button type="submit">Add</button>
-
         </form>
     </section>
 </main>
