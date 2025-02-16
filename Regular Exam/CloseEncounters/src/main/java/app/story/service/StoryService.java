@@ -30,7 +30,7 @@ public class StoryService {
                 .date(storyRequest.getDate())
                 .addedOn(LocalDate.now())
                 .owner(user)
-                .visible(false)
+                .isVisible(false)
                 .build();
 
         storyRepository.save(story);
@@ -41,7 +41,7 @@ public class StoryService {
     }
 
     public List<Story> getSharedStories() {
-        return storyRepository.findAllByVisibleTrue();
+        return storyRepository.findAllByIsVisibleTrue();
     }
 
     public void shareStory(UUID storyId) {

@@ -38,6 +38,6 @@ public class Story {
     @ManyToOne
     private User owner;
 
-    private boolean visible;
+    private boolean isVisible;
 
 }
