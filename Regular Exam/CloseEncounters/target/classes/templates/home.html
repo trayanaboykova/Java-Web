@@ -27,7 +27,7 @@
                     <div class="profile-info">
                         <div class="details-section-container">
                             <strong>Username: </strong>
-                            <p th:text="${user.username}"></p>
+                            <p th:text="${(#strings.isEmpty(user.firstName) and #strings.isEmpty(user.lastName)) ? user.username : (user.firstName + ' ' + user.lastName).trim()}"></p>
                         </div>
                         <div class="details-section-container">
                             <strong>Email: </strong>

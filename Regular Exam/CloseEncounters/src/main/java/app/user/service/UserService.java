@@ -4,6 +4,8 @@ import app.user.model.User;
 import app.user.repository.UserRepository;
 import app.web.dto.LoginRequest;
 import app.web.dto.RegisterRequest;
+import app.web.dto.UserEditRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -56,5 +58,16 @@ public class UserService {
 
     public User getById(UUID userId) {
         return userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User with id [" + userId + "] does not exist."));
+    }
+
+    public void editUserDetails(UUID id, @Valid UserEditRequest userEditRequest) {
+        User user = getById(id);
+
+        user.setFirstName(userEditRequest.getFirstName());
+        user.setLastName(userEditRequest.getLastName());
+        user.setEmail(userEditRequest.getEmail());
+        user.setProfilePicture(userEditRequest.getProfilePicture());
+
+        userRepository.save(user);
     }
 }

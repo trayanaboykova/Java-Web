@@ -8,7 +8,7 @@
 <main>
     <section class="section full-height">
 
-        <form class="welcome login" action="/" method="">
+        <form class="welcome login" th:action="@{'/users/' + ${user.id} + '/profile'}" th:method="PUT" th:object="${userEditRequest}">
 
             <h3>Edit Profile</h3>
 
@@ -16,32 +16,32 @@
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="firstName" class="h3 mb-2">First Name</label>
                 </div>
-                <input type="text" id="firstName" placeholder="Asen" name="firstName">
-                <p class="text-warning">Error Text Here</p>
+                <input type="text" id="firstName" placeholder="Enter your first name" name="firstName" th:field="*{firstName}">
+                <p class="text-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Error Text Here</p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="lastName" class="h3 mb-2">Last Name</label>
                 </div>
-                <input type="text" id="lastName" placeholder="Enter your last name" name="lastName">
-                <p class="text-warning">Error Text Here</p>
+                <input type="text" id="lastName" placeholder="Enter your last name" name="lastName" th:field="*{lastName}">
+                <p class="text-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error Text Here</p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="email" class="h3 mb-2">Email</label>
                 </div>
-                <input type="text" id="email" placeholder="Enter your email" name="email">
-                <p class="text-warning">Error Text Here</p>
+                <input type="text" id="email" placeholder="Enter your email" name="email" th:field="*{email}">
+                <p class="text-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error Text Here</p>
             </div>
 
             <div class="form-group">
                 <div class="label-holder text-white d-flex justify-content-center">
                     <label for="profilePicture" class="h3 mb-2">Profile Picture URL</label>
                 </div>
-                <input type="text" id="profilePicture" placeholder="Enter valid url for an image" name="profilePicture">
-                <p class="text-warning">Error Text Here</p>
+                <input type="text" id="profilePicture" placeholder="Enter valid url for an image" name="profilePicture" th:field="*{profilePicture}">
+                <p class="text-warning" th:if="${#fields.hasErrors('profilePicture')}" th:errors="*{profilePicture}">Error Text Here</p>
             </div>
 
             <button class="profile-actions-button">Save</button>
