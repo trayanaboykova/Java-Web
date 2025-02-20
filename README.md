@@ -1,4 +1,4 @@
-# Spring-Fundamentals
+# Spring Fundamentals
 Tasks from my course Spring Fundamentals at <a href="https://softuni.bg/">SoftUni</a> 
 
 <b> Course Curriculum: <a href="https://softuni.bg/trainings/4843/spring-fundamentals-january-2025">Spring Fundamentals</a> </b>
@@ -20,3 +20,11 @@ In this lesson, I explored the concept of state management in web applications, 
 
 **Events, Scheduling Tasks and Caching**: <br>
 In this lesson, I learned how to implement and manage events, scheduled tasks, and caching in Spring applications to improve functionality and performance. First, I explored Spring Events, which allow components to communicate by publishing and listening to events within an application. I learned how to define custom events and listeners and how to use the `ApplicationEventPublisher` to publish events across the Spring context, allowing for decoupled communication between components. Next, I delved into Scheduling Tasks, where I learned how to use Spring’s scheduling support to run tasks at fixed intervals or at specific times using annotations like `@Scheduled`. I also explored how to configure scheduling through XML or Java configuration to automate repetitive tasks, such as background jobs or cleanup tasks. Finally, I covered Caching, an essential technique to enhance performance by storing the results of expensive operations in memory. I learned how to implement caching with Spring using the `@Cacheable`, `@CachePut`, and `@CacheEvict annotations`. This allows applications to avoid recalculating values and reduce the load on databases or external services by reusing previously computed results.
+
+# Spring Advanced
+Tasks from my course Spring Fundamentals at <a href="https://softuni.bg/">SoftUni</a> 
+
+<b> Course Curriculum: <a href="https://softuni.bg/trainings/4844/spring-advanced-february-2025">Spring Advanced</a> </b>
+
+**Spring Security**: <br>
+In this lesson, I explored the fundamentals of Spring Security, a robust framework designed to secure Java web applications. I started with an introduction to the core concepts of security and learned how to configure Spring Security to protect endpoints and manage authentication and authorization. I delved into implementing custom user authentication by working with the UserDetailsService and UserDetails interfaces, which allow for flexible retrieval and management of user data. Additionally, I examined method-level security to restrict access via annotations and learned how filters can intercept HTTP requests to enforce security policies. This comprehensive overview equips me with the essential tools to build secure and reliable applications.
