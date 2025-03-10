@@ -1,8 +1,6 @@
 package app.wallet.service;
 
-import app.email.service.EmailService;
 import app.exception.DomainException;
-import app.tracking.service.TrackingService;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
 import app.transaction.model.TransactionType;
