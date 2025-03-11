@@ -1,12 +1,14 @@
 package app.web;
 
-import app.security.RequireAdminRole;
+import app.security.AuthenticationMetadata;
 import app.user.model.User;
 import app.user.service.UserService;
 import app.web.dto.UserEditRequest;
 import app.web.mapper.DTOMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +31,16 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequireAdminRole
+    // hasAnyRole - проверяваме за една от следните роли
+    // hasRole - проверяваме за една конкретна роля
+    // hasAuthority - проверяваме за един permission
+    // hasAnyAuthority - проверяваме за един от следните permissions
     @GetMapping
-    public ModelAndView getAllUsers() {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ModelAndView getAllUsers(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
 
         List<User> users = userService.getAllUsers();
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("users");
         modelAndView.addObject("users", users);
