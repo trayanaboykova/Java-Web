@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+// ТОЗИ КЛАС ПАЗИ ДАННИТЕ НА ЛОГНАТИЯ ПОТРЕБИТЕЛ
 @Data
 @Getter
 @AllArgsConstructor
