@@ -48,21 +48,6 @@ public class UserService implements UserDetailsService {
         this.walletService = walletService;
     }
 
-//    public User login(LoginRequest loginRequest) {
-//
-//        Optional<User> optionUser = userRepository.findByUsername(loginRequest.getUsername());
-//        if (optionUser.isEmpty()) {
-//            throw new DomainException("Username or password are incorrect.");
-//        }
-//
-//        User user = optionUser.get();
-//        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-//            throw new DomainException("Username or password are incorrect.");
-//        }
-//
-//        return user;
-//    }
-
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public User register(RegisterRequest registerRequest) {
@@ -77,7 +62,7 @@ public class UserService implements UserDetailsService {
         Subscription defaultSubscription = subscriptionService.createDefaultSubscription(user);
         user.setSubscriptions(List.of(defaultSubscription));
 
-        Wallet standardWallet = walletService.createNewWallet(user);
+        Wallet standardWallet = walletService.initilizeFirstWallet(user);
         user.setWallets(List.of(standardWallet));
 
         log.info("Successfully create new user account for username [%s] and id [%s]".formatted(user.getUsername(), user.getId()));
