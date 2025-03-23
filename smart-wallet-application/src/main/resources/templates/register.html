@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -29,11 +28,12 @@
             <!--th:method="POST"  тип на заявката-->
             <!--th:object="${registerRequest}"  обект, който ще се попълни от тази форма-->
 
-        <h3>Register Here</h3>
+            <h3>Register Here</h3>
 
             <label for="username">Username</label>
             <input type="text" placeholder="Username" id="username" th:field="*{username}" required>
             <p class="alert-warning" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></p>
+            <p class="alert-warning" th:text="${usernameAlreadyExistMessage}"></p>
 
             <label for="password">Password</label>
             <input type="password" placeholder="Password" id="password" th:field="*{password}" required>
@@ -44,8 +44,8 @@
                 <option th:each="country : ${T(app.user.model.Country).values()}" th:value="${country}" th:text="${#strings.capitalize(#strings.toLowerCase(country))}"></option>
             </select>
 
-        <button>Register</button>
-        <p class="form-already">Already have an account? <a href="/login">Login</a>!</p>
+            <button>Register</button>
+            <p class="form-already">Already have an account? <a href="/login">Login</a>!</p>
         </form>
 
     </section>

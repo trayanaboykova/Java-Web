@@ -1,6 +1,7 @@
 package app.transaction.service;
 
 import app.exception.DomainException;
+import app.notification.service.NotificationService;
 import app.transaction.model.Transaction;
 import app.transaction.model.TransactionStatus;
 import app.transaction.model.TransactionType;
@@ -23,10 +24,12 @@ import java.util.stream.Collectors;
 public class TransactionService {
 
     private final TransactionRepository transactionRepository;
+    private final NotificationService notificationService;
 
     @Autowired
-    public TransactionService(TransactionRepository transactionRepository) {
+    public TransactionService(TransactionRepository transactionRepository, NotificationService notificationService) {
         this.transactionRepository = transactionRepository;
+        this.notificationService = notificationService;
     }
 
     public Transaction createNewTransaction(User owner,
@@ -55,6 +58,9 @@ public class TransactionService {
                 .createdOn(LocalDateTime.now())
                 .build();
 
+        String emailBody = "%s transaction was successful processed for you with amount %.2f EUR!".formatted(transaction.getTransactionType(), transaction.getAmount());
+
+        notificationService.sendNotification(transaction.getOwner().getId(), "New Smart Wallet Transaction", emailBody);
 
         return transactionRepository.save(transaction);
     }

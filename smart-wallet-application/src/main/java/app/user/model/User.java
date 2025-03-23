@@ -4,7 +4,6 @@ import app.subscription.model.Subscription;
 import app.wallet.model.Wallet;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,10 +13,11 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-@Service
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+// ВАЖНО: 'user' key word in H2
+@Table(name = "users")
 public class User {
 
     @Id
@@ -40,9 +40,11 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private UserRole role;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Country country;
 
     private boolean isActive;

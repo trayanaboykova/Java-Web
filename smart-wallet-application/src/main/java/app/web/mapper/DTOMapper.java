@@ -8,6 +8,7 @@ import lombok.experimental.UtilityClass;
 public class DTOMapper {
     public static UserEditRequest mapUserToUserEditRequest(User user) {
 
+        // Test:
         return UserEditRequest.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())

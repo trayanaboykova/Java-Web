@@ -81,6 +81,11 @@ public class IndexController {
         return modelAndView;
     }
 
+    // POST with correct form data
+    // Expect:
+    // status - 200 OK
+    // called .register method of userService
+    // redirect to /login
     @PostMapping("/register")
     public ModelAndView registerNewUser(@Valid RegisterRequest registerRequest, BindingResult bindingResult) {
 
@@ -104,11 +109,4 @@ public class IndexController {
 
         return modelAndView;
     }
-
-//    @GetMapping("/logout")
-//    public String getLogoutPage(HttpSession session) {
-//
-//        session.invalidate();
-//        return "redirect:/";
-//    }
 }

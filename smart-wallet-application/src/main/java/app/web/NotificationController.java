@@ -58,23 +58,23 @@ public class NotificationController {
         return "redirect:/notifications";
     }
 
-//    @DeleteMapping
-//    public String deleteNotificationHistory(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
-//
-//        UUID userId = authenticationMetadata.getUserId();
-//
-//        notificationService.clearHistory(userId);
-//
-//        return "redirect:/notifications";
-//    }
-//
-//    @PutMapping
-//    public String retryFailedNotifications(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
-//
-//        UUID userId = authenticationMetadata.getUserId();
-//
-//        notificationService.retryFailed(userId);
-//
-//        return "redirect:/notifications";
-//    }
+    @DeleteMapping
+    public String deleteNotificationHistory(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        UUID userId = authenticationMetadata.getUserId();
+
+        notificationService.clearHistory(userId);
+
+        return "redirect:/notifications";
+    }
+
+    @PutMapping
+    public String retryFailedNotifications(@AuthenticationPrincipal AuthenticationMetadata authenticationMetadata) {
+
+        UUID userId = authenticationMetadata.getUserId();
+
+        notificationService.retryFailed(userId);
+
+        return "redirect:/notifications";
+    }
 }
