@@ -1,5 +1,8 @@
 package app.user.service;
 
+import app.aspect.VeryImportant;
+import app.event.UserRegisteredEventProducer;
+import app.event.payload.UserRegisteredEvent;
 import app.exception.DomainException;
 import app.exception.UsernameAlreadyExistException;
 import app.notification.service.NotificationService;
@@ -38,18 +41,20 @@ public class UserService implements UserDetailsService {
     private final SubscriptionService subscriptionService;
     private final WalletService walletService;
     private final NotificationService notificationService;
+    private final UserRegisteredEventProducer userRegisteredEventProducer;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
                        SubscriptionService subscriptionService,
-                       WalletService walletService, NotificationService notificationService) {
+                       WalletService walletService, NotificationService notificationService, UserRegisteredEventProducer userRegisteredEventProducer) {
 
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.subscriptionService = subscriptionService;
         this.walletService = walletService;
         this.notificationService = notificationService;
+        this.userRegisteredEventProducer = userRegisteredEventProducer;
     }
 
     // Register
@@ -78,13 +83,24 @@ public class UserService implements UserDetailsService {
         user.setWallets(List.of(standardWallet)); // Has 1 wallet
 
         // Persist new notification preference with isEnabled = false
-        notificationService.saveNotificationPreference(user.getId(), false, null);
+        // notificationService.saveNotificationPreference(user.getId(), false, null);
+
+        UserRegisteredEvent event = UserRegisteredEvent.builder()
+
+                .userId(user.getId())
+
+                .createdOn(user.getCreatedOn())
+
+                .build();
+
+        userRegisteredEventProducer.sendEvent(event);
 
         log.info("Successfully create new user account for username [%s] and id [%s]".formatted(user.getUsername(), user.getId()));
 
         return user;
     }
 
+    // JoinPoint
     // Test Case: When there is no user in the database (repository returns Optional.empty()) - then expect an exception
     // of type DomainException is thrown
     @CacheEvict(value = "users", allEntries = true)
@@ -131,6 +147,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    @VeryImportant
     public User getById(UUID id) {
 
         Optional<User> user = userRepository.findById(id);
@@ -140,8 +157,6 @@ public class UserService implements UserDetailsService {
         return user.get();
     }
 
-    // If user is ADMIN -> USER
-    // If user is USER -> ADMIN
     @CacheEvict(value = "users", allEntries = true)
     public void switchStatus(UUID userId) {
 
@@ -160,6 +175,8 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
+    // If user is ADMIN -> USER
+    // If user is USER -> ADMIN
     @CacheEvict(value = "users", allEntries = true)
     public void switchRole(UUID userId) {
 
